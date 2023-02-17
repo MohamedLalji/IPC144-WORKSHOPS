@@ -1,0 +1,8 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(514,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (w6p1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  w6p2.c
+C:\Users\mlalj\Desktop\IPC-Workshops-master\WS06\w6p2.c(101,19): warning C4477: 'scanf' : format string '%lf' requires an argument of type 'double *', but variadic argument 1 has type 'const double *'
+C:\Users\mlalj\Desktop\IPC-Workshops-master\WS06\w6p2.c(170,40): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mlalj\Desktop\IPC-Workshops-master\WS06\w6p2.c(171,41): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mlalj\Desktop\IPC-Workshops-master\WS06\w6p2.c(217,52): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mlalj\Desktop\IPC-Workshops-master\WS06\w6p2.c(218,53): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  w6p2.vcxproj -> C:\Users\mlalj\Desktop\IPC-Workshops-master\WS06\x64\Debug\w6p2.exe

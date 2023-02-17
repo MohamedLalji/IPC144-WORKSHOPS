@@ -1,0 +1,44 @@
+*****************************************************************************
+                               Reflection
+                             Workshop - #5
+Full Name  : Mohamed Lalji
+Student ID#: 168229219
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+*****************************************************************************
+
+1. The first selection construct is the case-by-case construct which compares a condition against a set of constant values as shown below:
+			
+        switch (month)
+        {
+        case 11: printf("NOV"); break;
+        case 12: printf("DEC"); break;
+        }
+Above is the case by case construct that can be used to display the last 2 months
+
+Another selection construct that can be used is using compound conditions as shown below:
+
+	  if(month == 11)
+	  {
+		printf("NOV");
+	  }
+	  else if (month == 12)
+	  {
+		printf("DEC");
+	  }
+
+Above is the example of how compound conditions can be used to print the first digits of the last 2 months of given the value.
+
+2. The three types of iterations are; While, do-while and for. I used the do-while iteration construct reason being that I wanted the sequence to be run atleast once before the condition is
+   tested. That is, the user should be prompted for their input before ther input can be compared to the condition. Using the while or the for loop would mean that the condition is tested 
+   first and if false then the sequence would not be run which means it would skip it as a whole.
+
+3. After i had my code ready at different stages of the coding, I went about to check whether the newly added code is working, for which i used the control + b to build the code and check for
+   any errors, then used control + f5 to run the code without debugging and once I had tested if the code was working I finally used the f5 shortcut to debug the program and run it again.
+   Syntactic errors include errors such as: missing semi-colons, mismatched parentheses, ommiting return statement etc. I used the compiler output technique to identify whether my code has
+   any of these errors. Semantic errors include errors such as: dangling else, uninitialized variable, mismatched data types etc. In order to identify these errors I used the Visual Studio 
+   IDE as well as the compiler error report.
+   

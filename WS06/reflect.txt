@@ -1,0 +1,13 @@
+*****************************************************************************
+                               Reflection
+                             Workshop - #6
+Full Name  : Mohamed Lalji
+Student ID#: 168229219
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+*****************************************************************************
+
+1. An example of a parallel array from the code is the part where I grouped the prices of 5 different items in one array named itemCost. The way I did this is I declared an array itemCost of size 10, then I

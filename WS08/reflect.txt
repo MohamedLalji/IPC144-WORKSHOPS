@@ -1,0 +1,59 @@
+*****************************************************************************
+                               Reflection
+                             Workshop - #8
+Full Name  : Mohamed Lalji
+Student ID#: 168229219
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+*****************************************************************************
+
+1. The ReportData has 3 int type members and 6 double float type members. Each int has 4 bytes and each double has 8 bytes. Therefore, the total bytes the ReportData structure requires is 60 bytes. One way to improve the passing of
+   structure data to a function, is by globally declaring a structure variable as shown below;
+
+	
+	struct ReportData
+	{
+    		struct CatFoodInfo basicInfo;
+  	      double ProductWeightKgs;
+   	      int ProductWeightGrams;
+   		double TotalServings;
+    		double CostPerServing;
+     	      double CostCalServing;
+	} reportdata;                 // GLOBALLY DECLARING THE FUNCTION
+
+ The ReportData has been globally declared in this case as reportdata and is therefore visible to all the functions in the program. This means that the structure doesn't need to be passed to the function separately.
+
+2. One way to do this would be to make the function CatFoodInfo a member of the ReportData structure as shwon below;
+
+struct ReportData
+{
+    struct CatFoodInfo basicInfo;
+    double ProductWeightKgs;
+    int ProductWeightGrams;
+    double TotalServings;
+    double CostPerServing;
+    double CostCalServing;
+};
+
+What this does is that it removes the problem of double naming the members. 
+
+The displayReportData would look like this;
+
+void displayReportData(const struct ReportData* Data, const int CheaperOpt)
+{
+	if (CheaperOpt)
+	{
+		printf("%07d %10.2lf %10.1lf %10.4lf %9d %8d %8.1lf %7.2lf %7.5lf ***\n", Data->basicInfo.Sku, Data->basicInfo.ProductPrice, Data->basicInfo.ProductWeight, Data->ProductWeightKgs, Data->ProductWeightGrams, Data->basicInfo.Calories, Data->TotalServings, Data->CostPerServing, Data->CostCalServing);
+	}
+
+	else
+	{
+		printf("%07d %10.2lf %10.1lf %10.4lf %9d %8d %8.1lf %7.2lf %7.5lf\n", Data->basicInfo.Sku, Data->basicInfo.ProductPrice, Data->basicInfo.ProductWeight, Data->ProductWeightKgs, Data->ProductWeightGrams, Data->basicInfo.Calories, Data->TotalServings, Data->CostPerServing, Data->CostCalServing);
+	}
+	
+}
+
+This clearly shows how the printf statements are used.
