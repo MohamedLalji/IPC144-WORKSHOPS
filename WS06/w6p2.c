@@ -14,277 +14,258 @@ piece of work is entirely of my own creation.
 */
 
 #define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
-#define MIN_WISHLIST_ITEM 1
-#define MAX_WISHLIST_ITEM 10
-#define MIN_IMPORTANCE_VALUE 1
-#define MAX_IMPORTANCE_VALUE 3
-#define FM_QUIT 0
-#define FM_ALL 1
-#define FM_PRIORITY 2
+
+#define MIN 1
+#define MAX 10
 
 int main(void)
 {
-    const double MAX_INCOME = 400000.00;
-    const double MIN_INCOME = 500.00;
+    int flag1 = -1, flag2 = -1, i, forecast, years, month, nItems, selection = -1;;
 
-    double netIncome;
+    const double minIncome = 500.00, maxIncome = 400000.00;
+    double income, subTotal = 0, priorityCost = 0;;
 
-    int finance_flag,
-        i,
-        nWishlistitem;
-
-    const double itemCost[MAX_WISHLIST_ITEM],
-        minItemCost = 100.00;
-
-    int itemPriority[MAX_WISHLIST_ITEM],
-        forecastMethod,
-        years,
-        months,
-        customerPriority;
-
-    char financeOpt[MAX_WISHLIST_ITEM];
-
-    double Cost = 0.0,
-        wishListTotalCost = 0.0,
-        TotalCost = 0.0,
-        priorityTotalCost = 0.0;
- 
-  
-    
-
+    double cost[10];
+    int priority[10];
+    char financing[10];
 
     printf("+--------------------------+\n");
     printf("+   Wish List Forecaster   |\n");
-    printf("+--------------------------+\n\n");
+    printf("+--------------------------+");
 
     do
     {
-        printf("Enter your monthly NET income: $");
-        scanf("%lf", &netIncome);
-
-        if (netIncome < MIN_INCOME)
+        printf("\n\nEnter your monthly NET income: $");
+        scanf("%lf", &income);
+        if (income >= minIncome && income <= maxIncome)
         {
-            printf("ERROR: You must have a consistent monthly income of at least %.2lf\n\n", MIN_INCOME);
-
+            flag1 = 0;
         }
-        else if (netIncome > MAX_INCOME)
+        else
         {
-            printf("ERROR: Liar! I'll believe you if you enter a value no more than %.2lf\n\n", MAX_INCOME);
+            if (income < minIncome)
+            {
+                printf("ERROR: You must have a consistent monthly income of at least $500.00");
+            }
+            if (income > maxIncome)
+            {
+                printf("ERROR: Liar! I'll believe you if you enter a value no more than $400000.00");
+            }
         }
+    } while (flag1 != 0);
 
-
-    } while (netIncome < MIN_INCOME || netIncome > MAX_INCOME);
+    flag1 = -1;
 
     do
     {
         printf("\nHow many wish list items do you want to forecast?: ");
-        scanf("%d", &nWishlistitem);
-
-        if (nWishlistitem < MIN_WISHLIST_ITEM || nWishlistitem > MAX_WISHLIST_ITEM)
+        scanf("%d", &nItems);
+        if (nItems >= MIN && nItems <= MAX)
         {
-            printf("ERROR: List is restricted to between %d and %d items.\n", MIN_WISHLIST_ITEM, MAX_WISHLIST_ITEM);
+            flag1 = 0;
         }
+        else
+        {
+            printf("ERROR: List is restricted to between 1 and 10 items.\n");
+        }
+    } while (flag1 != 0);
 
-    } while (nWishlistitem <= MIN_WISHLIST_ITEM || nWishlistitem >= MAX_WISHLIST_ITEM);
-
-
-
-    for (i = 1; i <= nWishlistitem; i++)
+    for (i = 0; i < nItems; i++)
     {
-        printf("\nItem-%d Details:\n", i);
+        flag1 = -1;
+        printf("\nItem-%d Details:", i + 1);
 
         do
         {
-            printf("   Item cost: $");
-            scanf("%lf", &itemCost[i]);
-
-            if (itemCost[i] < minItemCost)
+            printf("\n   Item cost: $");
+            scanf("%lf", &cost[i]);
+            if (cost[i] > 100.00)
             {
-                printf("      ERROR: Cost must be at least %.2lf\n", minItemCost);
+                flag1 = 0;
             }
+            else
+            {
+                printf("      ERROR: Cost must be at least $100.00");
+            }
+        } while (flag1 != 0);
 
-        } while (itemCost[i] < minItemCost);
+        flag1 = -1;
+
+        subTotal = subTotal + cost[i];
 
         do
         {
             printf("   How important is it to you? [1=must have, 2=important, 3=want]: ");
-            scanf("%d", &itemPriority[i]);
-
-            if (itemPriority[i] < MIN_IMPORTANCE_VALUE || itemPriority[i] > MAX_IMPORTANCE_VALUE)
+            scanf("%d", &priority[i]);
+            if (priority[i] > 0 && priority[i] < 4)
             {
-                printf("      ERROR: Value must be between %d and %d\n", MIN_IMPORTANCE_VALUE, MAX_IMPORTANCE_VALUE);
-            }
-
-        } while ((itemPriority[i] < MIN_IMPORTANCE_VALUE) || (itemPriority[i] > MAX_IMPORTANCE_VALUE));
-
-        if (itemPriority[i] >= MIN_IMPORTANCE_VALUE && itemPriority[i] <= MAX_IMPORTANCE_VALUE)
-        {
-            do
-            {
-                printf("   Does this item have financing options? [y/n]: ");
-                scanf(" %c", &financeOpt[i]);
-
-                if (financeOpt[i] != 'y' && financeOpt[i] != 'n')
-                {
-                    printf("      ERROR: Must be a lowercase 'y' or 'n'\n");
-                }
-            } while (financeOpt[i] != 'y' && financeOpt[i] != 'n');
-        }
-    }
-
-    printf("\nItem Priority Financed Cost\n");
-    printf("---- -------- -------- -----------\n");
-
-
-    for (i = 1; i <= nWishlistitem; i++)
-    {
-        printf("%3d  %5d    %5c    %11.2lf\n", i, itemPriority[i], financeOpt[i], itemCost[i]);
-        wishListTotalCost = wishListTotalCost + itemCost[i];
-    }
-
-    printf("---- -------- -------- -----------\n");
-    printf("                      $%11.2lf\n\n", wishListTotalCost);
-
-    do
-    {
-        printf("How do you want to forecast your wish list?\n");
-        printf(" 1. All items (no filter)\n");
-        printf(" 2. By priority\n");
-        printf(" 0. Quit/Exit\n");
-        printf("Selection: ");
-        scanf("%d", &forecastMethod);
-
-        if(forecastMethod != FM_ALL && forecastMethod != FM_PRIORITY && forecastMethod != FM_QUIT)
-        {
-            printf("\nERROR: Invalid menu selection.\n\n");
-        }
-
-        else if (forecastMethod == FM_ALL)
-        {
-            finance_flag = 0;
-            for (i = 1; i <= nWishlistitem; i++)
-            {
-                TotalCost = TotalCost + itemCost[i];
-                years = (int)TotalCost / netIncome;
-                months = (int)TotalCost / netIncome;
-                if (itemPriority[i] = 'y')
-                {
-                    finance_flag = 1;
-                }
-            }
-            
-            printf("\n====================================================\n");
-            printf("Filter:   All items\n");
-            printf("Amount:   $%1.2lf\n", TotalCost);
-            printf("Forecast: %d years, ", years / 12);
-
-            if (months >= 6.5)
-            {
-                printf("%d months\n", months % 12 + 1);
-            }
-            else 
-            {
-                printf("%d months\n", months % 12 - 1);
-            }
-            if (finance_flag = 1)
-            {
-                printf("NOTE: Financing options are available on some items.\n      You can likely reduce the estimated months.\n");
-            }
-            printf("====================================================\n\n");
-
-
-
-        }
-
-        else if (forecastMethod == FM_PRIORITY)
-        {
-            do
-            {
-                printf("\nWhat priority do you want to filter by? [1-3]: ");
-                scanf("%d", &customerPriority);
-            } while (customerPriority < MIN_IMPORTANCE_VALUE && customerPriority > MAX_IMPORTANCE_VALUE);
-
-            
-            finance_flag = 0;
-            for (i = 1; i <= customerPriority; i++)
-            {
-
-                if (itemPriority[i] == customerPriority)
-                {
-                    wishListTotalCost = wishListTotalCost + itemCost[i];
-                    years = (int)wishListTotalCost / netIncome;
-                    months = (int)wishListTotalCost / netIncome;
-
-                    if (itemPriority[i] = 'y')
-                    {
-                        finance_flag = 1;
-
-                    }
-
-                }
-            }
-
-            printf("\n====================================================\n");
-            printf("Filter:   by priority (%d)\n", customerPriority);
-            printf("Amount:   $%1.2lf\n", wishListTotalCost);
-
-            printf("Forecast: %d years, ", years / 12);
-          
-            if (months != .5)
-            {
-                printf("%d months\n", months % 12 + 1);
+                flag1 = 0;
             }
             else
             {
-                printf("%d months\n", months % 12 - 1);
+                printf("      ERROR: Value must be between 1 and 3\n");
             }
-            if (finance_flag = 1)
+        } while (flag1 != 0);
+
+        flag1 = -1;
+
+        do
+        {
+            printf("   Does this item have financing options? [y/n]: ");
+            scanf(" %c", &financing[i]);
+            if (financing[i] == 'y' || financing[i] == 'n')
             {
-                printf("NOTE: Financing options are available on some items.\n      You can likely reduce the estimated months.\n");
+                flag1 = 0;
             }
-          
-            printf("====================================================\n\n");
+            else
+            {
+                printf("      ERROR: Must be a lowercase 'y' or 'n'\n");
+            }
+        } while (flag1 != 0);
 
+    }
+    printf("\nItem Priority Financed        Cost");
+    printf("\n---- -------- -------- -----------");
 
+    for (i = 0; i < nItems; i++)
+    {
+        printf("\n%3d%7d%9c%15.2lf", i + 1, priority[i], financing[i], cost[i]);
+    }
+
+    printf("\n---- -------- -------- -----------");
+    printf("\n                      $ %0.2lf", subTotal);
+
+    do
+    {
+        flag1 = -1;
+        do
+
+        {
+            printf("\n\nHow do you want to forecast your wish list?\n 1. All items (no filter)\n");
+            printf(" 2. By priority\n 0. Quit/Exit\nSelection: ");
+            scanf("%d", &selection);
+
+            if (selection >= 0 && selection <= 2)
+            {
+                flag1 = 0;
+            }
+
+            else
+            {
+                printf("\nERROR: Invalid menu selection.");
+            }
+
+        } while (flag1 != 0);
+
+        flag1 = -1;
+
+        if (selection == 1)
+        {
+            printf("\n====================================================");
+            printf("\nFilter:   All items");
+            printf("\nAmount:   $%0.2lf", subTotal);
+
+            years = (subTotal / income) / 12;
+            month = (int)((subTotal / income) * 100) % 1200;
+
+            if (month % 100 != 0)
+
+            {
+                month = month / 100;
+                month = month + 1;
+                if (month == 12)
+                {
+                    years = years + 1;
+                    month = 0;
+                }
+            }
+            for (i = 0; i < nItems; i++)
+            {
+                if (financing[i] == 'y')
+
+                {
+                    flag1 = 0;
+                }
+            }
+            printf("\nForecast: %d years, %d months", years, month);
+            if (flag1 == 0)
+            {
+                printf("\nNOTE: Financing options are available on some items.");
+                printf("\n      You can likely reduce the estimated months.");
+            }
+
+            printf("\n====================================================");
+        }
+        if (selection == 2)
+        {
+            flag1 = -1;
+            do
+
+            {
+                printf("\nWhat priority do you want to filter by? [1-3]: ");
+                scanf("%d", &forecast);
+                if (forecast > 0 && forecast < 4)
+                {
+                    flag1 = 0;
+                }
+                else
+                {
+                    printf("   ERROR: Value must be between 1 and 3\n");
+                }
+            } while (flag1 != 0);
+            flag1 = -1;
+            priorityCost = 0;
+            for (i = 0; i < nItems; i++)
+            {
+                if (priority[i] == forecast)
+                {
+                    priorityCost = priorityCost + cost[i];
+                    if (financing[i] == 'y')
+
+                    {
+                        flag1 = 0;
+                    }
+                }
+            }
+            printf("\n====================================================");
+            printf("\nFilter:   by priority (%d)", forecast);
+            printf("\nAmount:   $%0.2lf", priorityCost);
+
+            years = (priorityCost / income) / 12;
+            month = (int)((priorityCost / income) * 100) % 1200;
+
+            if (month % 100 != 0)
+            {
+                month = month / 100;
+                month = month + 1;
+
+                if (month == 12)
+                {
+                    years = years + 1;
+                    month = 0;
+                }
+            }
+
+            printf("\nForecast: %d years, %d months", years, month);
+
+            if (flag1 == 0)
+            {
+                printf("\nNOTE: Financing options are available on some items.");
+                printf("\n      You can likely reduce the estimated months.");
+            }
+            printf("\n====================================================");
 
 
         }
-        
-       
 
-    } while (forecastMethod != FM_QUIT);
-  
+        if (selection == 0)
+        {
+            flag2 = 0;
+        }
+
+    } while (flag2 != 0);
+
     printf("\nBest of luck in all your future endeavours!\n");
-    
-       
-        
-        
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
     return 0;
 }
